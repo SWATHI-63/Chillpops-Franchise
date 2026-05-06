@@ -22,6 +22,16 @@ const Apply = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Save to localStorage for the admin side
+    const existingApplications = JSON.parse(localStorage.getItem("franchiseApplications") || "[]");
+    const newApplication = {
+      ...formData,
+      id: Date.now(),
+      date: new Date().toISOString()
+    };
+    localStorage.setItem("franchiseApplications", JSON.stringify([...existingApplications, newApplication]));
+
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
